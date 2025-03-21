@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+    <a href="{{ url_for('galleryPage') }}">Go Back to Items list</a>
+</div>
+    <img src="{{ technology.img_loc }}" alt="Premium stick pan" width="600" height="400">
+    <h1>{{ technology.name }}</h1>
+    <p>Price: {{ technology.Price }}</p>
+    <p>{{ technology.description }}</p>
+    <form action="" method="post">
+    <p>
+        {{ form.opinion.label }} <br>
+        {{ form.opinion(size=5) }}
+    </p>
+    <p>
+        {{ form.submit }}
+    </p>
+    
+<!-- <p><b>Enter the amount of items you want.</b></p>
+   <label for="opinion">Quantity:</label>
+    <input type="number" name="opinion" id="opinion" min="0" accesskey="a" required/>
+    <br><br>
+    <input type="submit" value="Submit"> -->
+    </form>
+</body>
+</html>
