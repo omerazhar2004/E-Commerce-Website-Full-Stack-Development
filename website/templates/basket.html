@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Selected Items:</h1>
+    <ul>
+        {% for tech in technology1 %}
+            <li>{{ tech.item_id }} </li> 
+            <!-- <button onclick="window.location.href='/tech/{{ tech.id }}'">View Further Details</button> </li> -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
