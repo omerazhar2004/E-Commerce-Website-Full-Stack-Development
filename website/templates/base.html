@@ -10,10 +10,14 @@
     <nav>
         <div>
             <div>
-                <a id='login' href="/login">Login</a>
+                {% if c_user.is_authenticated %}
                 <a id='logout' href="/logout">Logout</a>
-                <a id='signUp' href="/sign-up">sign up</a>
+                <a id='signUp' href="/">Home</a>
                 <a id='signUp' href="/gallery-page">go to items gallery</a>
+                {% else %}
+                <a id='login' href="/login">Login</a>
+                <a id='signUp' href="/sign-up">sign up</a>
+                {% endif %}
             </div>
         </div>
         <div>

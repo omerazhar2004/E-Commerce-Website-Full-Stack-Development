@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 DB_NAME = "dataStore.db"
 
 
@@ -22,6 +23,14 @@ def makeWebsite():
 
     from .models import user, Technology, cartItems
     makeDataBase(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def loadCurrentUser(id):
+        return user.query.get(int(id))
     return app
 
 def  makeDataBase(app):

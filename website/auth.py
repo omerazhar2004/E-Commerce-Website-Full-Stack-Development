@@ -1,18 +1,37 @@
 from flask import Blueprint
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from .models import user
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
+from flask_login import login_required, login_remembered, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
-# @auth.route('/login')
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password') 
+
+        user_check = user.query.filter_by(email = email).first()
+        if user_check:
+            if check_password_hash(user_check.password, password):
+                flash('logged in successfully!', category='success')
+                login_user(user_check, remember=True)
+                return redirect(url_for('nav.homePage')) 
+            else:
+                flash('password is not correct.', category='error')
+        else:
+            flash('Invalid email.', category='error')              
+    return render_template('login.html', c_user = current_user)
 
 @auth.route('/logout')
+@login_required
+
 def logout():
-    return render_template('logout.html')
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def signUp():
@@ -22,14 +41,20 @@ def signUp():
         lastName = request.form.get('lName')
         password = request.form.get('password')  
         passwordConfirm = request.form.get('password2')  
-
-        if len(email) < 3:
+        user_valid = user.query.filter_by(email = email).first()
+        if user_valid:
+            flash('email has already been registered', category='error')
+        elif len(email) < 3:
             flash('invalid email entered. Enter again.', category='error')
         elif len(password) < 6:
             flash('Password is too short.', category='error')
         elif password != passwordConfirm:
             flash('Passwords donot match!', category='error')
         else:
-            reg_user = user(email = email, password = password, fName = firstName)
-            flash('Account created successfully!', category='success')    
-    return render_template('sign-up.html')
+            reg_user = user(email = email, fName = firstName, password = generate_password_hash(password, method='pbkdf2:sha256'))
+            db.session.add(reg_user)
+            db.session.commit()
+            login_user(user_valid, remember=True)
+            flash('Account created successfully!', category='success') 
+            return redirect(url_for('nav.homePage'))   
+    return render_template('sign-up.html', c_user = current_user)
