@@ -2,18 +2,15 @@
 <html>
 <body>
     <h1>{% block title %}Home:{% endblock %}</h1>
-    <!-- <ul>
-        {% for tech in technologies %}
-            <li>{{ tech.name }} - {{ tech.price }} <button onclick="window.location.href='/tech/{{ tech.id }}'">View Further Details</button> </li>
-        {% endfor %}
-    </ul> -->
     <nav>
         <div>
             <div>
                 {% if c_user.is_authenticated %}
                 <a id='logout' href="/logout">Logout</a>
                 <a id='signUp' href="/">Home</a>
-                <a id='signUp' href="/gallery-page">go to items gallery</a>
+                <a id='signUp' href="/adminItems">Add items(for Admins only)</a>
+
+                <!-- <a id='signUp' href="/gallery-page">go to items gallery</a> -->
                 {% else %}
                 <a id='login' href="/login">Login</a>
                 <a id='signUp' href="/sign-up">sign up</a>

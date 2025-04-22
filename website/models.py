@@ -8,7 +8,6 @@ from flask_login import UserMixin
 from . import db
 from sqlalchemy.sql import func
 
-
 class user(db.Model, UserMixin):
      id = db.Column(db.Integer, primary_key=True)
      email = db.Column(db.String(150), unique=True)
@@ -19,14 +18,13 @@ class user(db.Model, UserMixin):
     
 
 class Technology(db.Model):
-    _tablename_ = 'technologies'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column('name', db.String())
-    price = db.Column('price', db.Float())
-    description = db.Column('description', db.String())
-    img_loc = db.Column('img_loc', db.String())
+    name = db.Column(db.String(150))
+    price = db.Column(db.Float())
+    description = db.Column(db.String(300))
+    img_loc = db.Column(db.String(150))
 
-    carts = db.relationship('cartItems', backref=db.backref('technology', lazy=True))   #relationship between Technology and cartItems
+    carts = db.relationship('cartItems')   #relationship between Technology and cartItems
 
 class cartItems(db.Model):
     id = db.Column(db.Integer, primary_key=True)

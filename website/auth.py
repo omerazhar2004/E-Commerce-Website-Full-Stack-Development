@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_required, login_remembered, logout_user, current_user
 
+from .models import Technology   #test
+
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -58,3 +60,22 @@ def signUp():
             flash('Account created successfully!', category='success') 
             return redirect(url_for('nav.homePage'))   
     return render_template('sign-up.html', c_user = current_user)
+
+@auth.route('/adminItems', methods=['GET', 'POST'])
+@login_required
+def add_items():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        price = request.form.get('price') 
+        description = request.form.get('description') 
+        img_loc = request.form.get('img_loc') 
+
+        item_check = Technology.query.filter_by(name = name).first()
+        if item_check:
+            flash('Item already exists in database!', category='error') 
+        else:
+            reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
+            db.session.add(reg_item)
+            db.session.commit()
+            flash('Item added successfully for users to browse through.', category='success')              
+    return render_template('adminItems.html', c_user = current_user)

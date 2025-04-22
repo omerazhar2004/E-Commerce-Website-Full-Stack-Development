@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Add Items for Customer to browse through {% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div>
+        <label for="name">Name</label>
+        <input type="name" id="name" name="name" placeholder="Enter item name.">
+    </div>
+
+    <div>
+        <label for="price">Price</label>
+        <input type="price" id="price" name="price" placeholder="Enter the item price.">  
+    </div>
+    <div>
+        <label for="price">Description</label>
+        <input type="description" id="description" name="description" placeholder="Enter the item description.">  
+    </div>
+    <div>
+        <label for="img_loc">Image File Name</label>
+        <input type="img_loc" id="img_loc" name="img_loc" placeholder="Enter the file name of the Image.">  
+    </div>
+    <Br/>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

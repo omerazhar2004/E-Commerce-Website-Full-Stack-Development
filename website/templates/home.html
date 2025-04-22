@@ -3,4 +3,9 @@
 
 {% block content %}
 <h1>This is the Home page</h1>
+<ul>
+    {% for tech in technologies %}
+        <li>{{ tech.name }} - {{ tech.price }} <button onclick="window.location.href='/tech/{{ tech.id }}'">View Further Details</button> </li>
+    {% endfor %}
+</ul>
 {% endblock %}
