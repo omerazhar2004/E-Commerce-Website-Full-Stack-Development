@@ -56,7 +56,7 @@ def signUp():
             reg_user = user(email = email, fName = firstName, password = generate_password_hash(password, method='pbkdf2:sha256'))
             db.session.add(reg_user)
             db.session.commit()
-            login_user(user_valid, remember=True)
+            # login_user(user_valid, remember=True)
             flash('Account created successfully!', category='success') 
             return redirect(url_for('nav.homePage'))   
     return render_template('sign-up.html', c_user = current_user)
@@ -71,14 +71,14 @@ def add_items():
         description = request.form.get('description') 
         img_loc = request.form.get('img_loc') 
         item_check = Technology.query.filter_by(name = name).first()
-        # if current_user.user.id == 1:
-        if item_check:
-            flash('Item already exists in database!', category='error') 
+        if current_user.id == 1:
+            if item_check:
+                flash('Item already exists in database!', category='error') 
+            else:
+                reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
+                db.session.add(reg_item)
+                db.session.commit()
+                flash('Item added successfully for users to browse through.', category='success')    
         else:
-            reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
-            db.session.add(reg_item)
-            db.session.commit()
-            flash('Item added successfully for users to browse through.', category='success')    
-        # else:
-        #     flash('Only an admin can add items to the main database.', category='error')               
+            flash('Only an admin can add items to the main database.', category='error')               
     return render_template('adminItems.html', c_user = current_user)
