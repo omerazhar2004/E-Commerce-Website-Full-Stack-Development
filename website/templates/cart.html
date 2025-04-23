@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Your Cart {% endblock %}
+
+{% block content %}
+<ul>
+    {% for items in c_techs %}
+        <li>
+
+        </br>     
+        {{ items.technology.name }}
+        <p>Quantity: {{items.quantity}}</p> 
+       
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

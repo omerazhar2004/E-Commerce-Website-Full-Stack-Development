@@ -2,11 +2,18 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
-<h1>This is the Home page</h1>
+<h1>Choose what you want to buy from our collection of products</h1>
 <ul>
     {% for tech in technologies %}
-        <li>{{ tech.name }} - {{ tech.price }} <button onclick="window.location.href='/tech/{{ tech.id }}'">View Further Details</button> </li>
+        <li>
+            <div>
+                <a href="/append-to-cart/{{ tech.id }}">Add</a>
+            </div>
+        </br>     
+        {{ tech.name }} - {{ tech.price }}
+        <p>{{tech.description}}</p> 
         <img src="{{ tech.img_loc }}" alt="{{ tech.name }}" width="300" height="230">
+        </li>
     {% endfor %}
 </ul>
 {% endblock %}

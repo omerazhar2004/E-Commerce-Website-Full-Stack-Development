@@ -19,7 +19,7 @@ def login():
         user_check = user.query.filter_by(email = email).first()
         if user_check:
             if check_password_hash(user_check.password, password):
-                flash('logged in successfully!', category='success')
+                flash('You logged in successfully!', category='success')
                 login_user(user_check, remember=True)
                 return redirect(url_for('nav.homePage')) 
             else:
@@ -61,9 +61,6 @@ def signUp():
             return redirect(url_for('nav.homePage'))   
     return render_template('sign-up.html', c_user = current_user)
 
-# @auth.route('/custProfile', methods=['GET', 'POST'])
-# @login_required
-# def add_items():
 
 @auth.route('/adminItems', methods=['GET', 'POST'])
 @login_required

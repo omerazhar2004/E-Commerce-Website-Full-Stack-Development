@@ -24,7 +24,7 @@ class Technology(db.Model):
     description = db.Column(db.String(300))
     img_loc = db.Column(db.String(150))
 
-    carts = db.relationship('cartItems')   #relationship between Technology and cartItems
+    carts = db.relationship('cartItems', backref=db.backref('technology', lazy=True))   #relationship between Technology and cartItems
 
 class cartItems(db.Model):
     id = db.Column(db.Integer, primary_key=True)
