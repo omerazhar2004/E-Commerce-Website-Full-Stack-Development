@@ -1,19 +1,30 @@
 {% extends "base.html" %}
-{% block title %} Home Page {% endblock %}
+{% block title %} Our Premium Collection {% endblock %}
 
 {% block content %}
 <h1>Choose what you want to buy from our collection of products</h1>
-<ul>
+<div class="row">
+    <div class="col-8">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     {% for tech in technologies %}
-        <li>
-            <div>
-                <a href="/append-to-cart/{{ tech.id }}">Add</a>
+    <div class="col">
+        <!-- <div class="card h-100"> -->
+            <div class="card">
+            <img class="card-img-top" src="{{ tech.img_loc }}" alt="{{ tech.name }}" width="50" height="260">
+            <div class="card-body">   
+            <h3 class="card-title">{{ tech.name }}</h3>
+            <p class="card-text">{{tech.description}}</p>
+            <p class="card_title">{{tech.price}} £</p>
+            <a class="btn btn-primary" href="/append-to-cart/{{ tech.id }}">Add</a>
             </div>
-        </br>     
-        {{ tech.name }} - {{ tech.price }} £
-        <p>{{tech.description}}</p> 
-        <img src="{{ tech.img_loc }}" alt="{{ tech.name }}" width="300" height="230">
-        </li>
+            </div>
+        <!-- </div> -->
+        </div>
     {% endfor %}
-</ul>
+    </div>
+</div>
+<div class="col-4">
+    <img src="/static/Summer Fitness GIF by RENPHO.gif" width="540" height="800">
+</div>
+</div>
 {% endblock %}

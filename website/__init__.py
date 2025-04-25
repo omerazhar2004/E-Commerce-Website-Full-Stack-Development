@@ -31,7 +31,7 @@ def makeWebsite():
     login_manager.init_app(app)
 
     @login_manager.user_loader
-    def loadCurrentUser(id):
+    def load_user(id):
         return user.query.get(int(id))
     return app
 

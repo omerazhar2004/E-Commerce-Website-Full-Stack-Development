@@ -75,10 +75,15 @@ def add_items():
             if item_check:
                 flash('Item already exists in database!', category='error') 
             else:
-                reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
-                db.session.add(reg_item)
-                db.session.commit()
-                flash('Item added successfully for users to browse through.', category='success')    
+                try:
+                    reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
+                    db.session.add(reg_item)
+                    db.session.commit()
+                    flash('Item added successfully for users to browse through.', category='success') 
+                    return redirect('/adminItems')
+                except Exception as e:
+                    print("item could not be added to the main database.", e)
+                    flash('item not added to the main database, kindly enter valid item informtation.', category='error')
         else:
             flash('Only an admin can add items to the main database.', category='error')               
     return render_template('adminItems.html', c_user = current_user)

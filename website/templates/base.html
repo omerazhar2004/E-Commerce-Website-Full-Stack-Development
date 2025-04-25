@@ -1,28 +1,73 @@
 <!DOCTYPE html>
 <html>
-<body>
-    <h1>{% block title %}Home:{% endblock %}</h1>
-    <nav>
-        <div>
-            <div>
-                {% if c_user.is_authenticated %}
-                <a id='logout' href="/logout">Logout</a>
-                <a id='signUp' href="/">Home</a>
-                <a id='signUp' href="/cartItems">Cart</a>
-                <a id='signUp' href="/adminItems">Manage Item Database(for Admins only)</a>
-                {% else %}
-                <a id='login' href="/login">Login</a>
-                <a id='signUp' href="/sign-up">sign up</a>
-                {% endif %}
-            </div>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+          .background1{
+            background: url('/static/PartY Celebrate GIF by Justin.gif') center no-repeat;
+            background-size: cover;
+            height: 150px
+          }  
+        </style>
+        <div class="background1 container-fluid">
+        <h1>{% block title %}Home:{% endblock %}</h1>
+        {% with alerts = get_flashed_messages(with_categories=true) %}
+        {% if alerts %}
+            {% for category, alert in alerts %} 
+            {% if category == 'error' %}
+            <div role="alert">
+                {{alert}}
+                <!-- <button type="button" data-dismiss="alert"></button> -->
+            </div> 
+            {% else %}
+            <div role="alert">
+                {{alert}}
+                <!-- <button type="button" data-dismiss="alert">close</button> -->
+            </div> 
+            {% endif %} 
+            {% endfor %}
+        {% endif %}
+        {% endwith %} 
         </div>
+    </head>    
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if c_user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/cartItems">Cart</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/adminItems">Manage Database(for Admins only)</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/sign-up">sign up</a>
+                </li>
+                {% endif %}
+            </ul>    
+           </div>
+        </div>
+    </nav>    
         <div>
             {% block content %}
             content here
             {% endblock %}
         </div>
-    </nav>
-    {% with alerts = get_flashed_messages(with_categories=true) %}
+    <!-- {% with alerts = get_flashed_messages(with_categories=true) %}
     {% if alerts %}
         {% for category, alert in alerts %} 
         {% if category == 'error' %}
@@ -38,6 +83,6 @@
         {% endif %} 
         {% endfor %}
     {% endif %}
-    {% endwith %}    
+    {% endwith %}     -->
 </body>
 </html>

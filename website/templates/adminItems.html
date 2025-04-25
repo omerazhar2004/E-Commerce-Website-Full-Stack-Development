@@ -1,26 +1,26 @@
 {% extends "base.html" %}
-{% block title %} Add Items for the customers to browse through {% endblock %}
+{% block title %} Add Items for the customers to browse through.You need to login through an admin account to do that! {% endblock %}
 
 {% block content %}
 <form method="POST">
     <div>
-        <label for="name">Name</label>
-        <input type="name" id="name" name="name" placeholder="Enter item name.">
+        <label class="form-label" for="name">Name</label>
+        <input class= "form-control" type="name" id="name" name="name" placeholder="Enter item name.">
     </div>
 
     <div>
-        <label for="price">Price</label>
-        <input type="price" id="price" name="price" placeholder="Enter the item price.">  
+        <label class="form-label" for="price">Price</label>
+        <input class= "form-control" type="price" id="price" name="price" placeholder="Enter the item price.">  
     </div>
     <div>
-        <label for="price">Description</label>
-        <input type="description" id="description" name="description" placeholder="Enter the item description.">  
+        <label class="form-label" for="price">Description</label>
+        <input class= "form-control" type="description" id="description" name="description" placeholder="Enter the item description.">  
     </div>
     <div>
-        <label for="img_loc">Image File Name</label>
-        <input type="img_loc" id="img_loc" name="img_loc" placeholder="Enter the file name of the Image.">  
+        <label class="form-label" for="img_loc">Image File Name</label>
+        <input class= "form-control" type="img_loc" id="img_loc" name="img_loc" placeholder="Enter the file name of the Image.">  
     </div>
     <Br/>
-    <button type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 {% endblock %}
