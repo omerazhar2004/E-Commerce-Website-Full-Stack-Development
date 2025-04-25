@@ -2,16 +2,18 @@
 {% block title %} Your Cart {% endblock %}
 
 {% block content %}
+{% if c_techs %}  
 <ul>
     {% for items in c_techs %}
-        <li>
-
-        </br>     
+        <li>    
         {{ items.technology.name }}
         <p>Quantity: {{items.quantity}}</p> 
+        <p>Total Price: {{total_price}} £</p>
         <a class="btn btn-primary" href="/delete-from-cart/{{ items.id }}">remove</a>
-       
         </li>
     {% endfor %}
 </ul>
+{% else %}
+<h2>Your cart is currently empty</h2>
+{% endif %}
 {% endblock %}

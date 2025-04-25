@@ -19,12 +19,10 @@
             {% if category == 'error' %}
             <div role="alert">
                 {{alert}}
-                <!-- <button type="button" data-dismiss="alert"></button> -->
             </div> 
             {% else %}
             <div role="alert">
                 {{alert}}
-                <!-- <button type="button" data-dismiss="alert">close</button> -->
             </div> 
             {% endif %} 
             {% endfor %}
@@ -70,22 +68,5 @@
             content here
             {% endblock %}
         </div>
-    <!-- {% with alerts = get_flashed_messages(with_categories=true) %}
-    {% if alerts %}
-        {% for category, alert in alerts %} 
-        {% if category == 'error' %}
-        <div role="alert">
-            {{alert}}
-            <button type="button" data-dismiss="alert"></button>
-        </div> 
-        {% else %}
-        <div role="alert">
-            {{alert}}
-            <button type="button" data-dismiss="alert"></button>
-        </div> 
-        {% endif %} 
-        {% endfor %}
-    {% endif %}
-    {% endwith %}     -->
 </body>
 </html>

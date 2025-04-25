@@ -15,8 +15,11 @@ def homePage():
 @nav.route('/cartItems')
 @login_required
 def cart_page():
-    c_items = cartItems.query.all()
-    return render_template('cart.html', c_techs = c_items, c_user = current_user)
+    c_items = cartItems.query.filter_by(user_id = current_user.id).all()
+    total_price = 0
+    for item in c_items:
+        total_price = item.technology.price * item.quantity
+    return render_template('cart.html', c_techs = c_items, c_user = current_user, total_price = total_price)
 
 @nav.route('/append-to-cart/<int:item_id>')
 @login_required
