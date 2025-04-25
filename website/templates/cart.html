@@ -5,8 +5,8 @@
 {% if c_techs %}  
 <ul>
     {% for items in c_techs %}
-        <li>    
-        {{ items.technology.name }}
+        <li class="border border-3" >    
+        <h3>{{ items.technology.name }}</h3>
         <p>Quantity: {{items.quantity}}</p> 
         <p>Total Price: {{total_price}} £</p>
         <a class="btn btn-primary" href="/delete-from-cart/{{ items.id }}">remove</a>

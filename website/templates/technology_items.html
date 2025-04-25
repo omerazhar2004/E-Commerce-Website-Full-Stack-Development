@@ -4,7 +4,7 @@
 {% block content %}
 <ul>
     {% for items in t_techs %}
-        <li>    
+        <li class="border border-3" >    
         <p>{{ items.name }} - {{items.price}} £</p>
         <a class="btn btn-primary" href="/delete-from-technology/{{ items.id }}">remove</a>
         </li>
