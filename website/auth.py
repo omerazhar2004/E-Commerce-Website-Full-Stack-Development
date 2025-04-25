@@ -87,3 +87,28 @@ def add_items():
         else:
             flash('Only an admin can add items to the main database.', category='error')               
     return render_template('adminItems.html', c_user = current_user)
+
+@auth.route('/technology-items')
+@login_required
+def technology_items():
+    t_items = Technology.query.all()
+    return render_template('technology_items.html', t_techs = t_items, c_user = current_user)
+
+@auth.route('/delete-from-technology/<int:item_id>')
+@login_required
+def delete_from_technology(item_id):
+    if current_user.id == 1:
+        try:
+            item_delete = Technology.query.get(item_id)
+            db.session.delete(item_delete)
+            db.session.commit()
+            flash('item removed from database successfully.', category='success')
+            return redirect(url_for('auth.technology_items'))
+        except Exception as e:
+            flash('item could not be removed from the database. Remove it from the cart first.', category='error') 
+            return redirect(url_for('auth.technology_items'))
+    else:
+        flash('Only an admin can delete items from the main database.', category='error')
+        return redirect(url_for('auth.technology_items')) 
+    return render_template('technology_items.html', c_user = current_user)
+        

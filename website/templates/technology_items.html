@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Main Items Database(for admin use only!){% endblock %}
+
+{% block content %}
+<ul>
+    {% for items in t_techs %}
+        <li>    
+        <p>{{ items.name }} - {{items.price}} £</p>
+        <a class="btn btn-primary" href="/delete-from-technology/{{ items.id }}">remove</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

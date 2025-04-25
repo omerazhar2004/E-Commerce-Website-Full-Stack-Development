@@ -32,26 +32,21 @@ def add_to_cart(item_id):
     db.session.add(reg_cart_item)
     db.session.commit()
     flash(f'{reg_cart_item.technology.name} has been added to the cart', category='success')
+    return redirect(url_for('nav.homePage'))
     return render_template('home.html', c_user = current_user)
 
-# @nav.route('/delete-from-cart/<int:item_id>')
-# @login_required
-# def delete_from_cart(item_id):
-#     item_delete = Technology.query.get(item_id)
-#     db.session.delete(item_delete)
-
-
-    # cart_item_check = cartItems.query.filter_by(product_link = item_id, user_id=current_user.id).first()
-    # if cart_item_check:
-    #     cart_item_check.quantity += 1
-    #     db.session.commit()
-    #     flash(f'quantity of {cart_item_check.technology.name} has been increased in your cart.', category='success')
-    #     return redirect(url_for('nav.homePage'))
-    # reg_cart_item = cartItems(quantity = 1, product_link = item_add.id, user_id = current_user.id)   
-    # db.session.add(reg_cart_item)
-    # db.session.commit()
-    # flash(f'{reg_cart_item.technology.name} has been added to the cart', category='success')
-    # return render_template('home.html', c_user = current_user)
-
-
+@nav.route('/delete-from-cart/<int:item_id>')
+@login_required
+def delete_from_cart(item_id):
+    try:
+        item_delete = cartItems.query.get(item_id)
+        db.session.delete(item_delete)
+        db.session.commit()
+        flash('item removed from cart successfully.', category='success')
+        return redirect(url_for('nav.cart_page'))
+    except Exception as e:
+        flash('item could not be removed from the cart.', category='error') 
+        return redirect(url_for('nav.cart_page'))
+    return render_template('cart.html', c_user = current_user)
+        
 
