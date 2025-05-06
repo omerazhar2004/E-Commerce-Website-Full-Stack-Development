@@ -17,6 +17,10 @@ def homePage(filter_by = None):
         techs = Technology.query.all()
     return render_template('home.html', technologies=techs, c_user = current_user)
 
+@nav.route('/references')
+def refPage():
+    return render_template('references.html', c_user = current_user)
+
 @nav.route('/cartItems')
 @login_required
 def cart_page():
