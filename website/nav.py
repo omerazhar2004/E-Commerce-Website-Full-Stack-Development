@@ -6,10 +6,15 @@ from . import db
 
 nav = Blueprint('nav', __name__)
 
-@nav.route('/')
+@nav.route('/', methods=['GET', 'POST'])
 @login_required
-def homePage():
-    techs = Technology.query.all()
+def homePage(filter_by = None):
+    if request.method == 'POST':
+        filter_by = request.form.get('filter_by') 
+    if filter_by:
+        techs = Technology.query.filter(Technology.name.ilike(f'{filter_by}%'))
+    else:       
+        techs = Technology.query.all()
     return render_template('home.html', technologies=techs, c_user = current_user)
 
 @nav.route('/cartItems')

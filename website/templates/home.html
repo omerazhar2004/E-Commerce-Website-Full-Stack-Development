@@ -3,6 +3,14 @@
 
 {% block content %}
 <h1>Choose what you want to buy from our collection of products</h1>
+<form method="POST">
+    <div class="mb-3">
+    <div>
+        <input class= "form-control" type="filter_by" name="filter_by" id="filter_by" placeholder="Searchbar">
+    </div>
+    <button class= "btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
 <div class="row">
     <div class="col-8">
 <div class="row row-cols-1 row-cols-md-3 g-4">
