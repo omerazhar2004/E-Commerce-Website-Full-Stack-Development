@@ -21,14 +21,17 @@ def homePage(filter_by = None):
 def refPage():
     return render_template('references.html', c_user = current_user)
 
+
 @nav.route('/cartItems')
 @login_required
 def cart_page():
     c_items = cartItems.query.filter_by(user_id = current_user.id).all()
     total_price = 0
+    overall_total_price = 0
     for item in c_items:
         total_price = item.technology.price * item.quantity
-    return render_template('cart.html', c_techs = c_items, c_user = current_user, total_price = total_price)
+        overall_total_price += total_price    
+    return render_template('cart.html', c_techs = c_items, c_user = current_user, total_price = total_price, overall_total_price = overall_total_price)
 
 @nav.route('/append-to-cart/<int:item_id>')
 @login_required
@@ -60,5 +63,21 @@ def delete_from_cart(item_id):
         flash('item could not be removed from the cart.', category='error') 
         return redirect(url_for('nav.cart_page'))
     return render_template('cart.html', c_user = current_user)
+
+@nav.route('/checkout', methods=['GET', 'POST'])
+def checkoutPage():
+    cart_vars = cart_page()
+    if request.method == 'POST':
+        card_number = request.form.get('card-number')
+        cv = request.form.get('cv')
+        if len(card_number) < 16:
+            flash('invalid card number.', category='error')
+        elif len(cv) < 3:
+            flash('Invalid CV number.', category='error')
+        else:
+            flash('You have checked out successfully!', category='success') 
+            return redirect(url_for('nav.homePage'))   
+    return render_template('checkout.html', c_user = current_user, cart_vars = cart_vars)
+
         
 

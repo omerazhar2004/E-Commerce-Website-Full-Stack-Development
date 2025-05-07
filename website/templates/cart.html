@@ -8,11 +8,14 @@
         <li class="border border-3" >    
         <h3>{{ items.technology.name }}</h3>
         <p>Quantity: {{items.quantity}}</p> 
-        <p>Total Price: {{total_price}} £</p>
+        <!-- <p>Total Price: {{total_price}} £</p> -->
         <a class="btn btn-primary" href="/delete-from-cart/{{ items.id }}">remove</a>
         </li>
     {% endfor %}
 </ul>
+<p>Total Price = {{overall_total_price}} £</p>
+<!-- <button class= "btn btn-primary" type="submit">Submit</button> -->
+<a class="btn btn-primary" href="/checkout" > Checkout </a>
 {% else %}
 <h2>Your cart is currently empty</h2>
 {% endif %}
