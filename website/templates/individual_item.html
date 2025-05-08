@@ -1,2 +1,18 @@
-<p>hello</p>
-<p>name = {{ technology.name }}</p>
+{% extends "base.html" %}
+{% block title %} Item Details {% endblock %}
+
+{% block content %}
+<body>
+    <div class="card">
+        <!-- <img class="card-img-top" src="{{ item_detail.img_loc }}" alt="{{ item_detail.name }}" width="10" height="100"> -->
+        <div class="card-body">   
+        <h3 class="card-title">{{ item_detail.name }}</h3>
+        <p class="card-text">{{item_detail.description}}</p>
+        <p class="card_title">{{item_detail.price}} £</p>
+        <p class="card_title">Carbon Footprint = {{item_detail.env_impact}} kg CO₂e</p>
+        <a class="btn btn-primary" href="/append-to-cart/{{ item_detail.id }}">Add to cart</a>
+
+        </div>
+        </div>
+</body>
+{% endblock %}

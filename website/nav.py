@@ -85,17 +85,11 @@ def checkoutPage():
             return redirect(url_for('nav.homePage'))   
     return render_template('checkout.html', c_user = current_user, cart_vars = cart_vars)
 
-# @nav.route('/individual-item/<int:techId>')
-# @login_required
-# def individual_item_page(techId):
-    # techs = Technology.query.all()
-    # c_items = cartItems.query.filter_by(user_id = current_user.id).all()
-    # total_price = 0
-    # overall_total_price = 0
-    # for item in c_items:
-    #     total_price = item.technology.price * item.quantity
-    #     overall_total_price += total_price    
-    # return render_template('individual_item.html', c_user = current_user, technology = Technology[techId])
+@nav.route('/individual-item/<int:techId>')
+@login_required
+def individual_item_page(techId):
+    item_detail = Technology.query.filter_by(id=techId).first() 
+    return render_template('individual_item.html', c_user = current_user, item_detail = item_detail)
 
         
 

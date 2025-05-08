@@ -6,10 +6,10 @@
 <form method="POST">
     <div class="mb-3">
     <div>
-        <input class= "form-control" name="filter_by" id="filter_by" placeholder="Search name">
+        <input class= "form-control" name="filter_by" id="filter_by" placeholder="Search by name">
     </div>
     <div>
-        <input class= "form-control" type="number" name="filter_by_price" id="filter_by_price" placeholder="Search price">
+        <input class= "form-control" type="number" name="filter_by_price" id="filter_by_price" placeholder="Search by price">
     </div>
     <div>
         <input class= "form-control" type="number" name="filter_by_env_impact" id="filter_by_env_impact" placeholder="Search by environmental impact">
@@ -26,11 +26,11 @@
             <img class="card-img-top" src="{{ tech.img_loc }}" alt="{{ tech.name }}" width="50" height="260">
             <div class="card-body">   
             <h3 class="card-title">{{ tech.name }}</h3>
-            <p class="card-text">{{tech.description}}</p>
             <p class="card_title">{{tech.price}} £</p>
             <p class="card_title">Carbon Footprint = {{tech.env_impact}} kg CO₂e</p>
             <a class="btn btn-primary" href="/append-to-cart/{{ tech.id }}">Add to cart</a>
-            <!-- <button onclick="window.location.href='/individual-item/{{ loop.index0 }}'">View Further Details</button> -->
+            <a class="btn btn-primary" href="{{ url_for('nav.individual_item_page', techId=tech.id) }}">View Item Details</a>
+
             </div>
             </div>
     </div>
