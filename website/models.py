@@ -23,6 +23,7 @@ class Technology(db.Model):
     price = db.Column(db.Float())
     description = db.Column(db.String(300))
     img_loc = db.Column(db.String(150))
+    env_impact = db.Column(db.Float())
 
     carts = db.relationship('cartItems', backref=db.backref('technology', lazy=True))   #relationship between Technology and cartItems
 

@@ -70,13 +70,14 @@ def add_items():
         price = request.form.get('price') 
         description = request.form.get('description') 
         img_loc = request.form.get('img_loc') 
+        env_impact = request.form.get('env_impact') 
         item_check = Technology.query.filter_by(name = name).first()
         if current_user.id == 1:
             if item_check:
                 flash('Item already exists in database!', category='error') 
             else:
                 try:
-                    reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}')
+                    reg_item = Technology(name = name, price = price, description = description, img_loc = f'/static/{img_loc}', env_impact = env_impact)
                     db.session.add(reg_item)
                     db.session.commit()
                     flash('Item added successfully for users to browse through.', category='success') 

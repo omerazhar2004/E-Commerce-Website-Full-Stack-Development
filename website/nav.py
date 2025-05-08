@@ -8,11 +8,17 @@ nav = Blueprint('nav', __name__)
 
 @nav.route('/', methods=['GET', 'POST'])
 @login_required
-def homePage(filter_by = None):
+def homePage(filter_by = None, filter_by_price = None, filter_by_env_impact = None):
     if request.method == 'POST':
         filter_by = request.form.get('filter_by') 
+        filter_by_price = request.form.get('filter_by_price')
+        filter_by_env_impact = request.form.get('filter_by_env_impact')
     if filter_by:
         techs = Technology.query.filter(Technology.name.ilike(f'{filter_by}%'))
+    elif filter_by_price:
+        techs = Technology.query.filter(Technology.price.ilike(f'{filter_by_price}%'))
+    elif filter_by_env_impact:
+          techs = Technology.query.filter(Technology.env_impact.ilike(f'{filter_by_env_impact}%'))
     else:       
         techs = Technology.query.all()
     return render_template('home.html', technologies=techs, c_user = current_user)
@@ -78,6 +84,18 @@ def checkoutPage():
             flash('You have checked out successfully!', category='success') 
             return redirect(url_for('nav.homePage'))   
     return render_template('checkout.html', c_user = current_user, cart_vars = cart_vars)
+
+# @nav.route('/individual-item/<int:techId>')
+# @login_required
+# def individual_item_page(techId):
+    # techs = Technology.query.all()
+    # c_items = cartItems.query.filter_by(user_id = current_user.id).all()
+    # total_price = 0
+    # overall_total_price = 0
+    # for item in c_items:
+    #     total_price = item.technology.price * item.quantity
+    #     overall_total_price += total_price    
+    # return render_template('individual_item.html', c_user = current_user, technology = Technology[techId])
 
         
 

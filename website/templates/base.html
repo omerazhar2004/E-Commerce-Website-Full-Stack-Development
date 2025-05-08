@@ -17,11 +17,11 @@
         {% if alerts %}
             {% for category, alert in alerts %} 
             {% if category == 'error' %}
-            <div role="alert">
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
                 {{alert}}
             </div> 
             {% else %}
-            <div role="alert">
+            <div class="alert alert-danger" role="alert">
                 {{alert}}
             </div> 
             {% endif %} 

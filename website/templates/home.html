@@ -6,7 +6,13 @@
 <form method="POST">
     <div class="mb-3">
     <div>
-        <input class= "form-control" type="filter_by" name="filter_by" id="filter_by" placeholder="Searchbar">
+        <input class= "form-control" name="filter_by" id="filter_by" placeholder="Search name">
+    </div>
+    <div>
+        <input class= "form-control" type="number" name="filter_by_price" id="filter_by_price" placeholder="Search price">
+    </div>
+    <div>
+        <input class= "form-control" type="number" name="filter_by_env_impact" id="filter_by_env_impact" placeholder="Search by environmental impact">
     </div>
     <button class= "btn btn-primary" type="submit">Search</button>
     </div>
@@ -22,10 +28,12 @@
             <h3 class="card-title">{{ tech.name }}</h3>
             <p class="card-text">{{tech.description}}</p>
             <p class="card_title">{{tech.price}} £</p>
-            <a class="btn btn-primary" href="/append-to-cart/{{ tech.id }}">Add</a>
+            <p class="card_title">Carbon Footprint = {{tech.env_impact}} kg CO₂e</p>
+            <a class="btn btn-primary" href="/append-to-cart/{{ tech.id }}">Add to cart</a>
+            <!-- <button onclick="window.location.href='/individual-item/{{ loop.index0 }}'">View Further Details</button> -->
             </div>
             </div>
-        </div>
+    </div>
     {% endfor %}
     </div>
 </div>
